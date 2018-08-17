@@ -1,0 +1,129 @@
+﻿using OpenTK;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using OpenTK.Graphics.OpenGL;
+using System.Diagnostics;
+using System.IO;
+
+namespace DrawTwoTriangles
+{
+    class Game : GameWindow
+    {
+        float[] vertices = new float[]
+        {
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.0f, 0.5f, 0.0f
+        };
+
+        float[] vertices2 = new float[]
+        {
+            0.0f, -0.5f, 0.0f, 
+            0.9f, -0.5f, 0.0f,  
+            0.45f, 0.5f, 0.0f
+        };
+
+        uint VBO;       // 배열로
+        uint VBO2;
+        uint VAO;
+        uint VAO2;
+        int vertexShader;
+        int fragShader;
+        int success;
+        int shaderProgram;
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            GL.GenVertexArrays(1, out VAO);
+            GL.BindVertexArray(VAO);
+
+            GL.GenBuffers(1, out VBO);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.StaticDraw);
+
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+            GL.EnableVertexAttribArray(0);
+
+            GL.GenVertexArrays(1, out VAO2);
+            GL.BindVertexArray(VAO2);
+
+            GL.GenBuffers(1, out VBO2);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, VBO2);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices2.Length, vertices2, BufferUsageHint.StaticDraw);
+
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+            GL.EnableVertexAttribArray(0);
+
+            vertexShader = GL.CreateShader(ShaderType.VertexShader);
+
+            using (StreamReader sr = new StreamReader(@"vertexShader.c"))
+            {
+                GL.ShaderSource(vertexShader, sr.ReadToEnd());
+            }
+
+            GL.CompileShader(vertexShader);
+
+            GL.GetShader(vertexShader, ShaderParameter.CompileStatus, out success);
+            if (success != 0)
+            {
+                GL.GetShaderInfoLog(vertexShader, out string infoLog);
+                Debug.Print($"Vertex shader compliation failed : {infoLog}");
+            }
+
+            fragShader = GL.CreateShader(ShaderType.FragmentShader);
+
+            using (StreamReader sr = new StreamReader(@"fragShader.c"))
+            {
+                GL.ShaderSource(fragShader, sr.ReadToEnd());
+            }
+
+            GL.CompileShader(fragShader);
+
+            GL.GetShader(fragShader, ShaderParameter.CompileStatus, out success);
+            if (success != 0)
+            {
+                GL.GetShaderInfoLog(fragShader, out string infoLog);
+                Debug.Print($"Vertex shader compliation failed : {infoLog}");
+            }
+
+            shaderProgram = GL.CreateProgram();
+            GL.AttachShader(shaderProgram, vertexShader);
+            GL.AttachShader(shaderProgram, fragShader);
+            GL.LinkProgram(shaderProgram);
+
+            GL.GetProgram(shaderProgram, GetProgramParameterName.LinkStatus, out success);
+            if (success != 0)
+            {
+                GL.GetProgramInfoLog(shaderProgram, out string infoLog);
+                Debug.Print($"Vertex shader compliation failed : {infoLog}");
+            }
+
+            GL.DeleteShader(vertexShader);
+            GL.DeleteShader(fragShader);
+        }
+
+        protected override void OnRenderFrame(FrameEventArgs e)
+        {
+            base.OnRenderFrame(e);
+
+            GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+            GL.UseProgram(shaderProgram);
+
+            GL.BindVertexArray(VAO);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+
+            GL.BindVertexArray(VAO2);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+
+            GL.BindVertexArray(0);
+
+            SwapBuffers();
+        }
+    }
+}
