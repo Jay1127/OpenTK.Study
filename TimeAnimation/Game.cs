@@ -1,14 +1,14 @@
 ﻿using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
-using System.Diagnostics;
-using System.IO;
 
-namespace DrawingTriangle
+namespace TimeAnimation
 {
     class Game : GameWindow
     {
@@ -25,6 +25,7 @@ namespace DrawingTriangle
         int fragShader;
         int success;
         int shaderProgram;
+        float timeValue;
 
         protected override void OnLoad(EventArgs e)
         {
@@ -46,7 +47,7 @@ namespace DrawingTriangle
             {
                 GL.ShaderSource(vertexShader, sr.ReadToEnd());
             }
-       
+
             GL.CompileShader(vertexShader);
 
             GL.GetShader(vertexShader, ShaderParameter.CompileStatus, out success);
@@ -78,7 +79,7 @@ namespace DrawingTriangle
             GL.LinkProgram(shaderProgram);
 
             GL.GetProgram(shaderProgram, GetProgramParameterName.LinkStatus, out success);
-            if(success == -1)
+            if (success == -1)
             {
                 GL.GetProgramInfoLog(shaderProgram, out string infoLog);
                 Debug.Print($"shader program is not linked : {infoLog}");
@@ -94,7 +95,13 @@ namespace DrawingTriangle
 
             GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
+            timeValue += (float)e.Time;
+            float greenValue = (float)Math.Sin(timeValue) / 2.0f + 0.5f;
+            
+            int vertexColorLocation = GL.GetUniformLocation(shaderProgram, "ourColor");
+
             GL.UseProgram(shaderProgram);
+            GL.Uniform4(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 
             GL.BindVertexArray(VAO);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);

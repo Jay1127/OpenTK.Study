@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingTwoTriangles", "Draw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingRectangleByEBO", "DrawingRectangleByEBO\DrawingRectangleByEBO.csproj", "{8F6AB984-CB3E-4C72-84E2-1A7B11E98FF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeAnimation", "TimeAnimation\TimeAnimation.csproj", "{64712F9D-DCE9-4638-90C0-F884A97E327E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaderObject", "ShaderObject\ShaderObject.csproj", "{71C67103-F528-45C7-B3B7-041744DC306B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{8F6AB984-CB3E-4C72-84E2-1A7B11E98FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F6AB984-CB3E-4C72-84E2-1A7B11E98FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F6AB984-CB3E-4C72-84E2-1A7B11E98FF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64712F9D-DCE9-4638-90C0-F884A97E327E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64712F9D-DCE9-4638-90C0-F884A97E327E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64712F9D-DCE9-4638-90C0-F884A97E327E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64712F9D-DCE9-4638-90C0-F884A97E327E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C67103-F528-45C7-B3B7-041744DC306B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C67103-F528-45C7-B3B7-041744DC306B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C67103-F528-45C7-B3B7-041744DC306B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C67103-F528-45C7-B3B7-041744DC306B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
