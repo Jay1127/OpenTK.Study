@@ -63,7 +63,7 @@ namespace DrawRectangleByEBO
             GL.CompileShader(vertexShader);
 
             GL.GetShader(vertexShader, ShaderParameter.CompileStatus, out success);
-            if (success != 0)
+            if (success == -1)
             {
                 GL.GetShaderInfoLog(vertexShader, out string infoLog);
                 Debug.Print($"Vertex shader compliation failed : {infoLog}");
@@ -79,10 +79,10 @@ namespace DrawRectangleByEBO
             GL.CompileShader(fragShader);
 
             GL.GetShader(fragShader, ShaderParameter.CompileStatus, out success);
-            if (success != 0)
+            if (success == -1)
             {
                 GL.GetShaderInfoLog(fragShader, out string infoLog);
-                Debug.Print($"Vertex shader compliation failed : {infoLog}");
+                Debug.Print($"fragment shader compliation failed : {infoLog}");
             }
 
             shaderProgram = GL.CreateProgram();
@@ -91,10 +91,10 @@ namespace DrawRectangleByEBO
             GL.LinkProgram(shaderProgram);
 
             GL.GetProgram(shaderProgram, GetProgramParameterName.LinkStatus, out success);
-            if (success != 0)
+            if (success == -1)
             {
                 GL.GetProgramInfoLog(shaderProgram, out string infoLog);
-                Debug.Print($"Vertex shader compliation failed : {infoLog}");
+                Debug.Print($"shader program is not linked : {infoLog}");
             }
 
             GL.DeleteShader(vertexShader);
