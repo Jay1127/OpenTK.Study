@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeAnimation", "Basic\Time
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstPersonCamera", "FirstPersonCamera\FirstPersonCamera.csproj", "{DE37DA43-5985-4D63-A215-767FFDD49DF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecularLigthing", "SpecularLigthing\SpecularLigthing.csproj", "{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{DE37DA43-5985-4D63-A215-767FFDD49DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE37DA43-5985-4D63-A215-767FFDD49DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE37DA43-5985-4D63-A215-767FFDD49DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +114,7 @@ Global
 		{71C67103-F528-45C7-B3B7-041744DC306B} = {BE5BF5A0-D69B-4229-B7F4-375673A0FD12}
 		{64712F9D-DCE9-4638-90C0-F884A97E327E} = {BE5BF5A0-D69B-4229-B7F4-375673A0FD12}
 		{DE37DA43-5985-4D63-A215-767FFDD49DF9} = {BE5BF5A0-D69B-4229-B7F4-375673A0FD12}
+		{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588} = {C4222F3E-956A-4FC7-99A9-5F45D25F75C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {776F5E3B-4AB0-44DC-9752-B4D3594EF277}

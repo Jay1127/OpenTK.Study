@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Toolkit;
 
-namespace DiffuseLighting
+namespace SpecularLigthing
 {
     class Game : SceneBase
     {
@@ -62,7 +62,7 @@ namespace DiffuseLighting
         Shader shader;
         Shader lightShader;
 
-        Vector3 lightPos = new Vector3(3f, 1.0f, 3.0f);
+        Vector3 lightPos = new Vector3(3f, 2.0f, 5.0f);
 
         protected override void OnLoad(EventArgs e)
         {
@@ -112,11 +112,12 @@ namespace DiffuseLighting
             lightShader.SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
             lightShader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
             lightShader.SetVec3("lightPos", lightPos);
+            lightShader.SetVec3("viewPos", Camera.CameraPos);
 
             Model = Matrix4.Identity;
             View = Camera.ViewMatrix;
 
-            Projection = Matrix4.CreatePerspectiveFieldOfView(MathUtil.ToRadian(Camera.Fov), 
+            Projection = Matrix4.CreatePerspectiveFieldOfView(MathUtil.ToRadian(Camera.Fov),
                                                                 Width / Height, 0.1f, 100.0f);
 
             lightShader.SetMat4("model", Model);
