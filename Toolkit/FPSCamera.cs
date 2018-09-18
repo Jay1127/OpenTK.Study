@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Toolkit
 {
-    class FPSCamera
+    public class FPSCamera
     {
         public Vector3 CameraPos { get; set; }
         public Vector3 CameraFront { get; set; }
