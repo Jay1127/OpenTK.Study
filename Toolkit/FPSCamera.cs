@@ -17,15 +17,19 @@ namespace Toolkit
             get => Matrix4.LookAt(CameraPos, CameraPos + CameraFront, CameraUp);
         }
 
+        public float Fov { get; private set; }
         private float yaw = -90.0f;
         private float pitch = 0.0f;
-        private float fov = 45.0f;
         private float cameraSpeed = 2.5f;
         private float sensitivity = 0.1f;
 
         public FPSCamera(Vector3 cameraPos)
         {
+            CameraPos = cameraPos;
+            CameraFront = new Vector3(0.0f, 0.0f, -1.0f);
+            CameraUp = new Vector3(0.0f, 1.0f, 0.0f);
 
+            Fov = 45.0f;
         }
 
         public void MoveForward()
@@ -67,12 +71,12 @@ namespace Toolkit
 
         public void Zoom(float zoomFactor)
         {
-            if (fov >= 1.0f && fov <= 45.0f)
-                fov -= zoomFactor;
-            if (fov <= 1.0f)
-                fov = 1.0f;
-            if (fov >= 45.0f)
-                fov = 45.0f;
+            if (Fov >= 1.0f && Fov <= 45.0f)
+                Fov -= zoomFactor;
+            if (Fov <= 1.0f)
+                Fov = 1.0f;
+            if (Fov >= 45.0f)
+                Fov = 45.0f;
         }
     }
 }

@@ -16,6 +16,12 @@ namespace Toolkit
         public Matrix4 Model { get; protected set; }
         public Matrix4 Projection { get; protected set; }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Camera = new FPSCamera(new Vector3(0, 0, 3));
+        }
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);

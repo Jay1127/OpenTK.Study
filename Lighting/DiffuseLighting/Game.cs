@@ -9,7 +9,7 @@ using Toolkit;
 
 namespace DiffuseLighting
 {
-    class Game : GameWindow
+    class Game : SceneBase
     {
         float[] vertices = new float[]
         {
@@ -65,10 +65,13 @@ namespace DiffuseLighting
         Matrix4 model;
         Matrix4 view;
         Matrix4 projection;
+        Vector3 lightPos = new Vector3(3f, 1.0f, 3.0f);
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            Camera.CameraPos = new Vector3(1, -1, 5);
 
             lightShader = new Shader(@"vertexShader.vs", @"lightShader.fs");
             lightShader.Create();
@@ -102,20 +105,22 @@ namespace DiffuseLighting
         {
             base.OnRenderFrame(e);
 
+            GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.LineSmooth);
+
             GL.ClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             lightShader.UseProgram();
             lightShader.SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
             lightShader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
-            lightShader.SetVec3("lightPos", 1.2f, 1.0f, 2.0f);
+            lightShader.SetVec3("lightPos", lightPos);
 
-            model = Matrix4.CreateFromAxisAngle(new Vector3(0.5f, 1.0f, 0.0f), (float)(50.0f * Math.PI / 180));
-            view = Matrix4.CreateTranslation(0.0f, 0.0f, -5f);
+            model = Matrix4.Identity;
+            view = Camera.ViewMatrix;
 
-            float fov = (float)(45.0f * Math.PI / 180);
-            float aspectRatio = Width / Height;
-            projection = Matrix4.CreatePerspectiveFieldOfView(fov, aspectRatio, 0.1f, 100.0f);
+            projection = Matrix4.CreatePerspectiveFieldOfView(MathUtil.ToRadian(Camera.Fov), 
+                                                                Width / Height, 0.1f, 100.0f);
 
             lightShader.SetMat4("model", model);
             lightShader.SetMat4("view", view);
@@ -124,8 +129,9 @@ namespace DiffuseLighting
             GL.BindVertexArray(cubeVAO);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 
+            // light cube
             shader.UseProgram();
-            model *= Matrix4.CreateTranslation(5, 0, 5);
+            model *= Matrix4.CreateTranslation(lightPos);
             model *= Matrix4.CreateScale(0.2f);
 
             shader.SetMat4("model", model);
