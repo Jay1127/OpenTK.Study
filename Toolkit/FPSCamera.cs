@@ -20,8 +20,8 @@ namespace Toolkit
         public float Fov { get; private set; }
         private float yaw = -90.0f;
         private float pitch = 0.0f;
-        private float cameraSpeed = 2.5f;
-        private float sensitivity = 0.1f;
+        private readonly float cameraSpeed = 2.5f;
+        private readonly float sensitivity = 0.1f;
 
         public FPSCamera(Vector3 cameraPos)
         {
