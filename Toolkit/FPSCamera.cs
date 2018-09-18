@@ -9,12 +9,12 @@ namespace Toolkit
 {
     public class FPSCamera
     {
-        public Vector3 CameraPos { get; set; }
-        public Vector3 CameraFront { get; set; }
-        public Vector3 CameraUp { get; set; }
+        public Vector3 Position { get; set; }
+        public Vector3 Front { get; set; }
+        public Vector3 Up { get; set; }
         public Matrix4 ViewMatrix
         {
-            get => Matrix4.LookAt(CameraPos, CameraPos + CameraFront, CameraUp);
+            get => Matrix4.LookAt(Position, Position + Front, Up);
         }
 
         public float Fov { get; private set; }
@@ -25,31 +25,31 @@ namespace Toolkit
 
         public FPSCamera(Vector3 cameraPos)
         {
-            CameraPos = cameraPos;
-            CameraFront = new Vector3(0.0f, 0.0f, -1.0f);
-            CameraUp = new Vector3(0.0f, 1.0f, 0.0f);
+            Position = cameraPos;
+            Front = new Vector3(0.0f, 0.0f, -1.0f);
+            Up = new Vector3(0.0f, 1.0f, 0.0f);
 
             Fov = 45.0f;
         }
 
         public void MoveForward()
         {
-            CameraPos += cameraSpeed * CameraFront;
+            Position += cameraSpeed * Front;
         }
 
         public void MoveBackward()
         {
-            CameraPos -= cameraSpeed * CameraFront;
+            Position -= cameraSpeed * Front;
         }
 
         public void MoveLeft()
         {
-            CameraPos -= Vector3.Cross(CameraFront, CameraUp).Normalized() * cameraSpeed;
+            Position -= Vector3.Cross(Front, Up).Normalized() * cameraSpeed;
         }
 
         public void MoveRight()
         {
-            CameraPos -= Vector3.Cross(CameraFront, CameraUp).Normalized() * cameraSpeed;
+            Position -= Vector3.Cross(Front, Up).Normalized() * cameraSpeed;
         }
 
         public void Rotate(float xDelta, float yDelta)
@@ -66,7 +66,7 @@ namespace Toolkit
             front.X = (float)(Math.Cos(MathUtil.ToRadian(yaw)) * Math.Cos(MathUtil.ToRadian(pitch)));
             front.Y = (float)Math.Sin(MathUtil.ToRadian(pitch));
             front.Z = (float)(Math.Sin(MathUtil.ToRadian(yaw)) * Math.Cos(MathUtil.ToRadian(pitch)));
-            CameraFront = Vector3.Normalize(front);
+            Front = Vector3.Normalize(front);
         }
 
         public void Zoom(float zoomFactor)

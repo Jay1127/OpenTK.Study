@@ -68,7 +68,7 @@ namespace DiffuseLighting
         {
             base.OnLoad(e);
 
-            Camera.CameraPos = new Vector3(1, -1, 5);
+            Camera.Position = new Vector3(1, -1, 5);
 
             lightShader = new Shader(@"vertexShader.vs", @"lightShader.fs");
             lightShader.Create();

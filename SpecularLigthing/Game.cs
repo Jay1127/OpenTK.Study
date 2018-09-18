@@ -68,7 +68,7 @@ namespace SpecularLigthing
         {
             base.OnLoad(e);
 
-            Camera.CameraPos = new Vector3(1, -1, 5);
+            Camera.Position = new Vector3(1, -1, 5);
 
             lightShader = new Shader(@"vertexShader.vs", @"lightShader.fs");
             lightShader.Create();
@@ -112,7 +112,7 @@ namespace SpecularLigthing
             lightShader.SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
             lightShader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
             lightShader.SetVec3("lightPos", lightPos);
-            lightShader.SetVec3("viewPos", Camera.CameraPos);
+            lightShader.SetVec3("viewPos", Camera.Position);
 
             Model = Matrix4.Identity;
             View = Camera.ViewMatrix;
