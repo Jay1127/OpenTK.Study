@@ -62,7 +62,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Toolkit\Toolkit.csproj">
+    <ProjectReference Include="..\..\Toolkit\Toolkit.csproj">
       <Project>{5185DE66-6058-443B-8912-0951D23DED3D}</Project>
       <Name>Toolkit</Name>
     </ProjectReference>
