@@ -54,7 +54,7 @@
     <None Include="fragShader.fs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="lightShader.fs">
+    <None Include="diffuseShader.fs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="vertexShader.vs">

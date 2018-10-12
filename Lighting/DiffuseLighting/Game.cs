@@ -9,7 +9,7 @@ using Toolkit;
 
 namespace DiffuseLighting
 {
-    class Game : SceneBase
+    class Game : GameWindow
     {
         float[] vertices = new float[]
         {
@@ -57,45 +57,65 @@ namespace DiffuseLighting
         };
 
         uint VBO;
-        uint cubeVAO;
-        uint lightVAO;
-        Shader shader;
-        Shader lightShader;
+        uint modelVAO;
+        uint lampVAO;
 
-        Vector3 lightPos = new Vector3(3f, 1.0f, 3.0f);
+        Shader lampShader;
+        Shader modelShader;
+
+        Vector3 lightPos = new Vector3(1.2f, 3.0f, 2.0f);
+
+        Matrix4 model;
+        Matrix4 view;
+        Matrix4 projection;
+
+        private const string uniformModel = "model";
+        private const string uniformView = "view";
+        private const string uniformProjection = "projection";
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            Camera.Position = new Vector3(1, -1, 5);
+            modelShader = new Shader(@"vertexShader.vs", @"diffuseShader.fs");
+            modelShader.Create();
 
-            lightShader = new Shader(@"vertexShader.vs", @"lightShader.fs");
-            lightShader.Create();
+            lampShader = new Shader(@"vertexShader.vs", @"fragShader.fs");
+            lampShader.Create();
 
-            shader = new Shader(@"vertexShader.vs", @"fragShader.fs");
-            shader.Create();
-
-            GL.GenVertexArrays(1, out cubeVAO);
-            GL.BindVertexArray(cubeVAO);
+            // model
+            GL.GenVertexArrays(1, out modelVAO);
+            GL.BindVertexArray(modelVAO);
 
             GL.GenBuffers(1, out VBO);
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
             GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.StaticDraw);
 
-            // position attribute
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
 
             GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 3 * sizeof(float));
             GL.EnableVertexAttribArray(1);
 
-            GL.GenVertexArrays(1, out lightVAO);
-            GL.BindVertexArray(lightVAO);
+            // lamp
+            GL.GenVertexArrays(1, out lampVAO);
+            GL.BindVertexArray(lampVAO);
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
 
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            // projection
+            float fov = (float)(45.0f * Math.PI / 180);
+            float aspectRatio = Width / Height;
+            projection = Matrix4.CreatePerspectiveFieldOfView(fov, aspectRatio, 0.1f, 100.0f);
+
+            GL.Viewport(0, 0, Width, Height);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -108,34 +128,31 @@ namespace DiffuseLighting
             GL.ClearColor(0.1f, 0.1f, 0.1f, 0.1f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            lightShader.UseProgram();
-            lightShader.SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
-            lightShader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
-            lightShader.SetVec3("lightPos", lightPos);
+            modelShader.UseProgram();
+            modelShader.SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
+            modelShader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
+            modelShader.SetVec3("lightPos", lightPos);
 
-            Model = Matrix4.Identity;
-            View = Camera.ViewMatrix;
+            model = Matrix4.Identity;
+            view = Matrix4.LookAt(new Vector3(-1.5f, 1.5f, -3f), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
 
-            Projection = Matrix4.CreatePerspectiveFieldOfView(MathUtil.ToRadian(Camera.Fov), 
-                                                                Width / Height, 0.1f, 100.0f);
+            modelShader.SetMat4(uniformModel, model);
+            modelShader.SetMat4(uniformView, view);
+            modelShader.SetMat4(uniformProjection, projection);
 
-            lightShader.SetMat4("model", Model);
-            lightShader.SetMat4("view", View);
-            lightShader.SetMat4("projection", Projection);
-
-            GL.BindVertexArray(cubeVAO);
+            GL.BindVertexArray(modelVAO);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 
             // light cube
-            shader.UseProgram();
-            Model *= Matrix4.CreateTranslation(lightPos);
-            Model *= Matrix4.CreateScale(0.2f);
+            lampShader.UseProgram();
+            model *= Matrix4.CreateTranslation(lightPos);
+            model *= Matrix4.CreateScale(0.3f);
 
-            shader.SetMat4("model", Model);
-            shader.SetMat4("view", View);
-            shader.SetMat4("projection", Projection);
+            lampShader.SetMat4(uniformModel, model);
+            lampShader.SetMat4(uniformView, view);
+            lampShader.SetMat4(uniformProjection, projection);
 
-            GL.BindVertexArray(lightVAO);
+            GL.BindVertexArray(lampVAO);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 
             SwapBuffers();
