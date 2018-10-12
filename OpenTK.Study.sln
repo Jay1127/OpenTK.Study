@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstPersonCamera", "Basic\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecularLigthing", "Lighting\SpecularLigthing\SpecularLigthing.csproj", "{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Material", "Lighting\Material\Material.csproj", "{0DFFCEDC-BFBF-48EE-AF0F-221EC9F642F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DFFCEDC-BFBF-48EE-AF0F-221EC9F642F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DFFCEDC-BFBF-48EE-AF0F-221EC9F642F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DFFCEDC-BFBF-48EE-AF0F-221EC9F642F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DFFCEDC-BFBF-48EE-AF0F-221EC9F642F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +121,7 @@ Global
 		{64712F9D-DCE9-4638-90C0-F884A97E327E} = {BE5BF5A0-D69B-4229-B7F4-375673A0FD12}
 		{DE37DA43-5985-4D63-A215-767FFDD49DF9} = {BE5BF5A0-D69B-4229-B7F4-375673A0FD12}
 		{A32D5B0A-7DAA-47AF-AAB5-00D0B9046588} = {C4222F3E-956A-4FC7-99A9-5F45D25F75C1}
+		{0DFFCEDC-BFBF-48EE-AF0F-221EC9F642F3} = {C4222F3E-956A-4FC7-99A9-5F45D25F75C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {776F5E3B-4AB0-44DC-9752-B4D3594EF277}

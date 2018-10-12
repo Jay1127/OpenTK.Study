@@ -54,6 +54,11 @@ namespace Toolkit
             GL.Uniform1(GL.GetUniformLocation(Id, name), value);            
         }
 
+        public void SetFloat(string name, float value)
+        {
+            GL.Uniform1(GL.GetUniformLocation(Id, name), value);
+        }
+
         public void SetVec3(string name, Vector3 vector)
         {
             SetVec3(name, vector.X, vector.Y, vector.Z);
