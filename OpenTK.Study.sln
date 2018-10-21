@@ -39,7 +39,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Material", "Lighting\Materi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffuseLightingMaps", "Lighting\DiffuseLightingMaps\DiffuseLightingMaps.csproj", "{A6C6F02D-7880-45B9-BC67-AEAFD4018CE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecularLightingMaps", "SpecularLightingMaps\SpecularLightingMaps.csproj", "{E66EDBA3-914E-4E33-94F5-4662FF9FD530}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecularLightingMaps", "Lighting\SpecularLightingMaps\SpecularLightingMaps.csproj", "{E66EDBA3-914E-4E33-94F5-4662FF9FD530}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModelLoading", "ModelLoading", "{E376EC30-04AF-4BD7-B4F1-D4E34BFD4A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
