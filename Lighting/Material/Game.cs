@@ -90,7 +90,7 @@ namespace Material
             GL.GenBuffers(1, out VBO);
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
             GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.StaticDraw);
-            
+
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
 
@@ -135,8 +135,9 @@ namespace Material
             modelShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
             modelShader.SetFloat("material.shininess", 32.0f);
 
+            modelShader.SetVec3("light.position", lightPos);
             modelShader.SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-            modelShader.SetVec3("light.diffuse", 1.0f, 1.0f, 1.0f); 
+            modelShader.SetVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
             modelShader.SetVec3("light.specular", 0.5f, 0.5f, 0.5f);
 
             modelShader.SetVec3("viewPos", viewerPos);
