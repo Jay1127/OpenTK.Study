@@ -50,7 +50,7 @@ namespace ModelLoader
 
             // vertex texture coords
             GL.EnableVertexAttribArray(2);
-            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, Vertex.GetSize(), Vector2.SizeInBytes);
+            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, Vertex.GetSize(), Vector3.SizeInBytes * 2);
 
             GL.BindVertexArray(0);
         }
