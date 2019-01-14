@@ -143,9 +143,8 @@ namespace SpotLight
             modelShader.SetFloat("light.quadratic", 0.032f);
 
             modelShader.SetVec3("viewPos", camera.Position);
-
-            var view = Matrix4.LookAt(camera.Position, new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-            modelShader.SetMat4("view", view);
+            
+            modelShader.SetMat4("view", camera.ViewMatrix);
 
             var projection = Matrix4.CreatePerspectiveFieldOfView((float)(45.0f * Math.PI / 180),
                                                                   Width / Height, 0.1f, 100.0f);

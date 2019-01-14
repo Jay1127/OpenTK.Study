@@ -49,7 +49,7 @@ namespace Toolkit
 
         public void MoveRight()
         {
-            Position -= Vector3.Cross(Front, Up).Normalized() * cameraSpeed;
+            Position += Vector3.Cross(Front, Up).Normalized() * cameraSpeed;
         }
 
         public void Rotate(float xDelta, float yDelta)
