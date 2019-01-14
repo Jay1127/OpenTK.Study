@@ -10,6 +10,7 @@ namespace PointLight
     {
         static void Main(string[] args)
         {
+            new Game().Run();
         }
     }
 }

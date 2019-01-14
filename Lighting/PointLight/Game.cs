@@ -1,20 +1,20 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using Imaging = System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toolkit;
-using Imaging = System.Drawing.Imaging;
+using OpenTK.Input;
 
-namespace DirectionalLight
+namespace PointLight
 {
     public class Game : GameWindow
     {
-        float[] vertices = 
+        float[] vertices =
         {
             // positions          // normals           // texture coords
             -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
@@ -60,7 +60,7 @@ namespace DirectionalLight
             -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
         };
 
-        Vector3[] cubePositions = 
+        Vector3[] cubePositions =
         {
             new Vector3( 0.0f,  0.0f,  0.0f),
             new Vector3( 2.0f,  5.0f, -15.0f),
@@ -74,7 +74,8 @@ namespace DirectionalLight
             new Vector3(-1.3f,  1.0f, -1.5f)
         };
 
-        Vector3 viewerPos = new Vector3(-3.0f, -2.0f, 5.0f);
+        Vector3 viewerPos = new Vector3(-3.0f, -2.0f, 10.0f);
+        Vector3 lightPos = new Vector3(1.2f, 1.0f, 2.0f);
 
         int VBO;
         int cubeVAO;
@@ -82,13 +83,17 @@ namespace DirectionalLight
         uint diffuseMap;
         uint specularMap;
         Shader modelShader;
+        Shader lampShader;
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            modelShader = new Shader(@"directional_light.vs", @"directional_light.fs");
+            modelShader = new Shader(@"point_light.vs", @"point_light.fs");
             modelShader.Create();
+
+            lampShader = new Shader(@"lampShader.vs", @"lampShader.fs");
+            lampShader.Create();
 
             // cube            
             GL.GenVertexArrays(1, out cubeVAO);
@@ -110,6 +115,14 @@ namespace DirectionalLight
             GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), 6 * sizeof(float));
             GL.EnableVertexAttribArray(2);
 
+            // lamp
+            GL.GenVertexArrays(1, out lightVAO);
+            GL.BindVertexArray(lightVAO);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
+
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
+            GL.EnableVertexAttribArray(0);
+
             // texture load
             diffuseMap = LoadTexture(@"Resources\container2.png");
             specularMap = LoadTexture(@"Resources\container2_specular.png");
@@ -129,10 +142,13 @@ namespace DirectionalLight
 
             modelShader.SetFloat("material.shininess", 32.0f);
 
-            modelShader.SetVec3("light.direction", -0.2f, -1.0f, -0.3f);
+            modelShader.SetVec3("light.position", lightPos);
             modelShader.SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
             modelShader.SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
             modelShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
+            modelShader.SetFloat("light.constant", 1.0f);
+            modelShader.SetFloat("light.linear", 0.09f);
+            modelShader.SetFloat("light.quadratic", 0.032f);
 
             modelShader.SetVec3("viewPos", viewerPos);
 
@@ -152,8 +168,8 @@ namespace DirectionalLight
 
             GL.BindVertexArray(cubeVAO);
 
-            for(int i = 0; i < 10; i++)
-            {   
+            for (int i = 0; i < 10; i++)
+            {
                 float angle = 20.0f * i;
 
                 var translation = Matrix4.CreateTranslation(cubePositions[i]);
@@ -165,6 +181,15 @@ namespace DirectionalLight
                 GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
             }
 
+            lampShader.UseProgram();
+            lampShader.SetMat4("projection", projection);
+            lampShader.SetMat4("view", view);
+
+            var lampModel = Matrix4.CreateScale(0.2f) * Matrix4.CreateTranslation(lightPos);
+            lampShader.SetMat4("model", lampModel);
+
+            GL.BindVertexArray(lightVAO);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 
             SwapBuffers();
         }
@@ -191,6 +216,26 @@ namespace DirectionalLight
             else if (e.Key == Key.Right)
             {
                 viewerPos.X++;
+            }
+
+            // light position
+            if (e.Key == Key.W)
+            {
+                lightPos.Y++;
+            }
+            else if (e.Key == Key.S)
+            {
+                lightPos.Y--;
+            }
+
+            else if (e.Key == Key.A)
+            {
+                lightPos.X--;
+            }
+
+            else if (e.Key == Key.D)
+            {
+                lightPos.X++;
             }
         }
 
