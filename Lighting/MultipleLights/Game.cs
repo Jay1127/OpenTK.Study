@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Toolkit;
 using Imaging = System.Drawing.Imaging;
 
-namespace SpotLight
+namespace MultipleLights
 {
     public class Game : GameWindow
     {
@@ -74,20 +74,33 @@ namespace SpotLight
             new Vector3(-1.3f,  1.0f, -1.5f)
         };
 
-        FPSCamera camera = new FPSCamera(new Vector3(0.0f, 0.0f, 3.0f));
+        Vector3[] pointLightPositions =
+        {
+            new Vector3( 0.7f,  0.2f,  2.0f),
+            new Vector3( 2.3f, -3.3f, -4.0f),
+            new Vector3(-4.0f,  2.0f, -12.0f),
+            new Vector3( 0.0f,  0.0f, -3.0f)
+        };
+
+        FPSCamera camera = new FPSCamera(new Vector3(0.0f, 0.0f, 5.0f));
 
         int VBO;
         int cubeVAO;
+        int lightVAO;
         uint diffuseMap;
         uint specularMap;
         Shader modelShader;
+        Shader lampShader;
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            modelShader = new Shader(@"spot_light.vs", @"smooth_spot_light.fs");
+            modelShader = new Shader(@"multiple_light.vs", @"multiple_light.fs");
             modelShader.Create();
+
+            lampShader = new Shader(@"lampShader.vs", @"lampShader.fs");
+            lampShader.Create();
 
             // cube            
             GL.GenVertexArrays(1, out cubeVAO);
@@ -112,6 +125,14 @@ namespace SpotLight
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
             GL.EnableVertexAttribArray(0);
 
+            // lamp
+            GL.GenVertexArrays(1, out lightVAO);
+            GL.BindVertexArray(lightVAO);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
+
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
+            GL.EnableVertexAttribArray(0);
+
             // texture load
             diffuseMap = LoadTexture(@"Resources\container2.png");
             specularMap = LoadTexture(@"Resources\container2_specular.png");
@@ -129,22 +150,60 @@ namespace SpotLight
 
             modelShader.UseProgram();
 
+            // directional light
+            modelShader.SetVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+            modelShader.SetVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+            modelShader.SetVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+            modelShader.SetVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+
+            // point light 1
+            modelShader.SetVec3("pointLights[0].position", pointLightPositions[0]);
+            modelShader.SetVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+            modelShader.SetVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+            modelShader.SetVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+            modelShader.SetFloat("pointLights[0].constant", 1.0f);
+            modelShader.SetFloat("pointLights[0].linear", 0.09f);
+            modelShader.SetFloat("pointLights[0].quadratic", 0.032f);
+            // point light 2
+            modelShader.SetVec3("pointLights[1].position", pointLightPositions[1]);
+            modelShader.SetVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+            modelShader.SetVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+            modelShader.SetVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+            modelShader.SetFloat("pointLights[1].constant", 1.0f);
+            modelShader.SetFloat("pointLights[1].linear", 0.09f);
+            modelShader.SetFloat("pointLights[1].quadratic", 0.032f);
+            // point light 3
+            modelShader.SetVec3("pointLights[2].position", pointLightPositions[2]);
+            modelShader.SetVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+            modelShader.SetVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+            modelShader.SetVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+            modelShader.SetFloat("pointLights[2].constant", 1.0f);
+            modelShader.SetFloat("pointLights[2].linear", 0.09f);
+            modelShader.SetFloat("pointLights[2].quadratic", 0.032f);
+            // point light 4
+            modelShader.SetVec3("pointLights[3].position", pointLightPositions[3]);
+            modelShader.SetVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+            modelShader.SetVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+            modelShader.SetVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+            modelShader.SetFloat("pointLights[3].constant", 1.0f);
+            modelShader.SetFloat("pointLights[3].linear", 0.09f);
+            modelShader.SetFloat("pointLights[3].quadratic", 0.032f);
+
+            // spotLight
+            modelShader.SetVec3("spotLight.position", camera.Position);
+            modelShader.SetVec3("spotLight.direction", camera.Front);
+            modelShader.SetVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+            modelShader.SetVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+            modelShader.SetVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+            modelShader.SetFloat("spotLight.constant", 1.0f);
+            modelShader.SetFloat("spotLight.linear", 0.09f);
+            modelShader.SetFloat("spotLight.quadratic", 0.032f);
+            modelShader.SetFloat("spotLight.cutOff", (float)Math.Cos(MathUtil.ToRadian(12.5f)));
+            modelShader.SetFloat("spotLight.outerCutOff", (float)Math.Cos(MathUtil.ToRadian(15.0f)));
+
             modelShader.SetFloat("material.shininess", 32.0f);
-
-            modelShader.SetVec3("light.position", camera.Position);
-            modelShader.SetVec3("light.direction", camera.Front);
-            modelShader.SetFloat("light.cutOff", (float)Math.Cos(MathUtil.ToRadian(12.5f)));
-            modelShader.SetFloat("light.outerCutOff", (float)Math.Cos(MathUtil.ToRadian(17.5f)));
-
-            modelShader.SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-            modelShader.SetVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
-            modelShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
-            modelShader.SetFloat("light.constant", 1.0f);
-            modelShader.SetFloat("light.linear", 0.09f);
-            modelShader.SetFloat("light.quadratic", 0.032f);
-
             modelShader.SetVec3("viewPos", camera.Position);
-            
+
             modelShader.SetMat4("view", camera.ViewMatrix);
 
             var projection = Matrix4.CreatePerspectiveFieldOfView((float)(45.0f * Math.PI / 180),
@@ -159,8 +218,9 @@ namespace SpotLight
             GL.BindTexture(TextureTarget.Texture2D, specularMap);
 
             GL.BindVertexArray(cubeVAO);
-            
-            for (int i = 0; i < 10; i++)
+
+            // draw container box
+            for (int i = 0; i < cubePositions.Length; i++)
             {
                 float angle = 20.0f * i;
 
@@ -170,6 +230,19 @@ namespace SpotLight
 
                 modelShader.SetMat4("model", model);
 
+                GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+            }
+
+            // draw point light
+            lampShader.UseProgram();
+            lampShader.SetMat4("projection", projection);
+            lampShader.SetMat4("view", camera.ViewMatrix);
+            for (int i = 0; i < pointLightPositions.Length; i++)
+            {
+                var lampModel = Matrix4.CreateScale(0.2f) * Matrix4.CreateTranslation(pointLightPositions[i]);
+                lampShader.SetMat4("model", lampModel);
+
+                GL.BindVertexArray(lightVAO);
                 GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
             }
 
