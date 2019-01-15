@@ -74,7 +74,7 @@ namespace SpotLight
             new Vector3(-1.3f,  1.0f, -1.5f)
         };
 
-        FPSCamera camera = new FPSCamera(new Vector3(0.0f, 0.0f, 5.0f));
+        FPSCamera camera = new FPSCamera(new Vector3(0.0f, 0.0f, 3.0f));
 
         int VBO;
         int cubeVAO;
@@ -86,7 +86,7 @@ namespace SpotLight
         {
             base.OnLoad(e);
 
-            modelShader = new Shader(@"spot_light.vs", @"spot_light.fs");
+            modelShader = new Shader(@"spot_light.vs", @"smooth_spot_light.fs");
             modelShader.Create();
 
             // cube            
@@ -126,7 +126,7 @@ namespace SpotLight
 
             GL.ClearColor(0.1f, 0.1f, 0.1f, 0.1f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
+            
             modelShader.UseProgram();
 
             modelShader.SetFloat("material.shininess", 32.0f);
@@ -134,9 +134,10 @@ namespace SpotLight
             modelShader.SetVec3("light.position", camera.Position);
             modelShader.SetVec3("light.direction", camera.Front);
             modelShader.SetFloat("light.cutOff", (float)Math.Cos(MathUtil.ToRadian(12.5f)));
-
+            modelShader.SetFloat("light.outerCutOff", (float)Math.Cos(MathUtil.ToRadian(17.5f)));
+            
             modelShader.SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-            modelShader.SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+            modelShader.SetVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
             modelShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
             modelShader.SetFloat("light.constant", 1.0f);
             modelShader.SetFloat("light.linear", 0.09f);
@@ -148,7 +149,7 @@ namespace SpotLight
 
             var projection = Matrix4.CreatePerspectiveFieldOfView((float)(45.0f * Math.PI / 180),
                                                                   Width / Height, 0.1f, 100.0f);
-
+            
             modelShader.SetMat4("projection", projection);
 
             GL.ActiveTexture(TextureUnit.Texture0);
@@ -158,7 +159,7 @@ namespace SpotLight
             GL.BindTexture(TextureTarget.Texture2D, specularMap);
 
             GL.BindVertexArray(cubeVAO);
-
+            
             for (int i = 0; i < 10; i++)
             {
                 float angle = 20.0f * i;

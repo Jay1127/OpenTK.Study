@@ -53,6 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="smooth_spot_light.fs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="spot_light.fs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
