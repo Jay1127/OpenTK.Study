@@ -61,6 +61,12 @@
     <Content Include="Resources\container2_specular.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\marble.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\metal.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\nanosuit\arm_dif.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
