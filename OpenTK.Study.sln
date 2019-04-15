@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepthTesting", "AdvancedLig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blending", "AdvancedLighting\Blending\Blending.csproj", "{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameBuffer", "FrameBuffer\FrameBuffer.csproj", "{771B2BBB-E19F-41AE-8FE2-72E965B33DCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +163,10 @@ Global
 		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{771B2BBB-E19F-41AE-8FE2-72E965B33DCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771B2BBB-E19F-41AE-8FE2-72E965B33DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771B2BBB-E19F-41AE-8FE2-72E965B33DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771B2BBB-E19F-41AE-8FE2-72E965B33DCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,6 +195,7 @@ Global
 		{8EDE1F8E-22B5-42C6-BD53-7C32D97FD990} = {C4222F3E-956A-4FC7-99A9-5F45D25F75C1}
 		{469A7DEF-4CAC-4320-9EEC-AF9F7FF5D632} = {F127E242-4E4F-4926-98CD-ED6150BE9087}
 		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5} = {F127E242-4E4F-4926-98CD-ED6150BE9087}
+		{771B2BBB-E19F-41AE-8FE2-72E965B33DCF} = {F127E242-4E4F-4926-98CD-ED6150BE9087}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {776F5E3B-4AB0-44DC-9752-B4D3594EF277}
