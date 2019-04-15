@@ -134,10 +134,8 @@ namespace DepthTesting
         {
             base.OnRenderFrame(e);
 
-            base.OnRenderFrame(e);
-
             GL.Enable(EnableCap.DepthTest);
-            GL.DepthFunc(DepthFunction.Always);
+            GL.DepthFunc(DepthFunction.Less);
 
             GL.ClearColor(0.1f, 0.1f, 0.1f, 0.1f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
