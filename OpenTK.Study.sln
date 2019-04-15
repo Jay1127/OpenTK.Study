@@ -57,6 +57,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdvancedLighting", "Advance
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepthTesting", "AdvancedLighting\DepthTesting\DepthTesting.csproj", "{469A7DEF-4CAC-4320-9EEC-AF9F7FF5D632}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blending", "AdvancedLighting\Blending\Blending.csproj", "{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +157,10 @@ Global
 		{469A7DEF-4CAC-4320-9EEC-AF9F7FF5D632}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{469A7DEF-4CAC-4320-9EEC-AF9F7FF5D632}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{469A7DEF-4CAC-4320-9EEC-AF9F7FF5D632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,6 +188,7 @@ Global
 		{4A79367A-17A1-4D7A-B593-C592B82466F4} = {C4222F3E-956A-4FC7-99A9-5F45D25F75C1}
 		{8EDE1F8E-22B5-42C6-BD53-7C32D97FD990} = {C4222F3E-956A-4FC7-99A9-5F45D25F75C1}
 		{469A7DEF-4CAC-4320-9EEC-AF9F7FF5D632} = {F127E242-4E4F-4926-98CD-ED6150BE9087}
+		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5} = {F127E242-4E4F-4926-98CD-ED6150BE9087}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {776F5E3B-4AB0-44DC-9752-B4D3594EF277}
