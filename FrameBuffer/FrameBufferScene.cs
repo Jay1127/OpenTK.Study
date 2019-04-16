@@ -107,7 +107,13 @@ namespace FrameBuffer
             shader = new Shader(@"frameBufferShader.vs", @"frameBufferShader.fs");
             shader.Create();
 
-            screenShader = new Shader(@"screenShader.vs", @"screenShader.fs");
+            //screenShader = new Shader(@"screenShader.vs", @"screenShader.fs");
+            //screenShader = new Shader(@"screenShader.vs", @"inversionShader.fs");
+            //screenShader = new Shader(@"screenShader.vs", @"grayscaleShader.fs");
+            //screenShader = new Shader(@"screenShader.vs", @"kernelEffectShader.fs");
+            //screenShader = new Shader(@"screenShader.vs", @"blurShader.fs");
+            screenShader = new Shader(@"screenShader.vs", @"edgeDetectionShader.fs");
+
             screenShader.Create();
 
             // cube            
@@ -159,7 +165,7 @@ namespace FrameBuffer
             GL.EnableVertexAttribArray(1);
 
             // texture load
-            cubeTextureId = LoadTexture(@"Resources\marble.jpg");
+            cubeTextureId = LoadTexture(@"Resources\container.jpg");
             planeTextureId = LoadTexture(@"Resources\metal.png");
 
             shader.UseProgram();
@@ -186,7 +192,7 @@ namespace FrameBuffer
 
             if (GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer) != FramebufferErrorCode.FramebufferComplete)
             {
-
+                throw new Exception("Check framebuffer status");
             }
 
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
