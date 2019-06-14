@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blending", "AdvancedLightin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameBuffer", "FrameBuffer\FrameBuffer.csproj", "{771B2BBB-E19F-41AE-8FE2-72E965B33DCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlinnPhong", "AdvancedLighting\BlinnPhong\BlinnPhong.csproj", "{9539A0A9-7AB2-4EC8-93CE-5F019125E0F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,10 @@ Global
 		{771B2BBB-E19F-41AE-8FE2-72E965B33DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{771B2BBB-E19F-41AE-8FE2-72E965B33DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{771B2BBB-E19F-41AE-8FE2-72E965B33DCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9539A0A9-7AB2-4EC8-93CE-5F019125E0F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9539A0A9-7AB2-4EC8-93CE-5F019125E0F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9539A0A9-7AB2-4EC8-93CE-5F019125E0F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9539A0A9-7AB2-4EC8-93CE-5F019125E0F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,6 +202,7 @@ Global
 		{469A7DEF-4CAC-4320-9EEC-AF9F7FF5D632} = {F127E242-4E4F-4926-98CD-ED6150BE9087}
 		{FBB02563-10EF-4AE3-ACF7-6D08EEA191F5} = {F127E242-4E4F-4926-98CD-ED6150BE9087}
 		{771B2BBB-E19F-41AE-8FE2-72E965B33DCF} = {F127E242-4E4F-4926-98CD-ED6150BE9087}
+		{9539A0A9-7AB2-4EC8-93CE-5F019125E0F3} = {F127E242-4E4F-4926-98CD-ED6150BE9087}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {776F5E3B-4AB0-44DC-9752-B4D3594EF277}
